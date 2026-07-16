@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                min-height: 100vh;
+                background: linear-gradient(135deg, #eef2ff 0%, #f8fafc 45%, #e0f2fe 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 24px;
+                box-sizing: border-box;
+            }
+            .card { max-width: 440px; width: 100%; background: rgba(255,255,255,0.95); padding: 28px; border-radius: 18px; box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12); }
+            h2 { margin-top: 0; }
+            form p { margin-bottom: 12px; }
+            input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; }
+            button { width: 100%; padding: 10px; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; border: none; border-radius: 8px; cursor: pointer; }
+            .error { color: #b91c1c; font-weight: bold; }
+            .link { margin-top: 12px; display: block; }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <h2>Login</h2>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <p class="error">Invalid username or password. Please try again.</p>
+                {% endif %}
+
+                {{ form.as_p }}
+
+                <button type="submit">Login</button>
+            </form>
+
+            <p class="link">
+                Don't have an account?
+                <a href="{% url 'register' %}">Register</a>
+            </p>
+            <p class="link">
+                Forgot your password?
+                <a href="{% url 'password_recovery' %}">Recover account</a>
+            </p>
+        </div>
+    </body>
+</html>

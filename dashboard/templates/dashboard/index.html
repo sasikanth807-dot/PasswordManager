@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #eef2ff 0%, #f8fafc 45%, #e0f2fe 100%);
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            box-sizing: border-box;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 32px;
+            border-radius: 18px;
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+            max-width: 820px;
+            width: 100%;
+        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-top: 24px; }
+        .item { padding: 16px; border: 1px solid #e2e8f0; border-radius: 12px; background: #f8fafc; }
+        .item h3 { margin: 0 0 8px; }
+        .btn { display: inline-block; margin-top: 16px; padding: 10px 16px; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; text-decoration: none; border-radius: 10px; margin-right: 8px; }
+        .btn.secondary { background: linear-gradient(135deg, #64748b, #475569); }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Welcome, {{ user.username }}!</h1>
+        <p>Your password manager dashboard is now ready.</p>
+        <p>You can keep all your website logins and passwords in one secure place.</p>
+        <div class="item" style="margin-top: 16px;">
+            <h3>Saved accounts</h3>
+            <p style="font-size: 1.8rem; margin: 8px 0 0; font-weight: bold;">{{ saved_accounts }}</p>
+        </div>
+        <p>Choose an option below to continue.</p>
+
+        <div class="grid">
+            <div class="item">
+                <h3>Vault</h3>
+                <p>Store and organize your saved passwords.</p>
+            </div>
+            <div class="item">
+                <h3>Security</h3>
+                <p>Review your recovery and security settings.</p>
+            </div>
+            <div class="item">
+                <h3>Account</h3>
+                <p>Update your profile and sign out safely.</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <a class="btn" href="{% url 'vault' %}">Open Vault</a>
+            <a class="btn" href="{% url 'security' %}">Security</a>
+            <a class="btn" href="{% url 'account' %}">Account</a>
+            <a class="btn secondary" href="{% url 'logout' %}">Log out</a>
+        </div>
+    </div>
+</body>
+</html>

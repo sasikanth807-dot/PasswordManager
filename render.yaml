@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: password-manager
+    env: python
+    plan: free
+
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py migrate
+      python manage.py collectstatic --noinput
+
+    startCommand: gunicorn --config gunicorn.conf.py config.wsgi:application
+
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+
+      - key: DEBUG
+        value: "False"
+
+      - key: ALLOWED_HOSTS
+        value: password-manager.onrender.com
+
+      - key: DATABASE_URL
+        fromDatabase:
+          name: password-manager-db
+          property: connectionString
+
+databases:
+  - name: password-manager-db
+    plan: free
+    databaseName: passwordmanager
+    user: passwordmanager
